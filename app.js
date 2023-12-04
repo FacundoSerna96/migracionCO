@@ -151,9 +151,16 @@ const moverCarpeta = async (uuidOrigen, uuidDestino) => {
     requestOptions
   )
     .then((response) => response.json())
-    .then((result) => console.log(result))
+    .then((result) => {
+        console.log(result);
+        compararConCO(result["entry"]["parentId"])
+    })
     .catch((error) => console.log("error", error));
 };
+
+const compararConCO = async (parentId) => {
+    
+}
 
 // Iniciar el servidor
 app.listen(PORT, () => {
