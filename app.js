@@ -3,7 +3,7 @@ require("dotenv").config(); // Cargar variables de entorno desde .env
 const bodyParser = require("body-parser");
 
 const express = require("express");
-const writeToLog = require("./log");
+const { writeToLog, backupIdError } = require("./log");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -11,9 +11,11 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+var cantLote = 0;
+
 // Ruta básica
 app.post("/migracionCO", async (req, res) => {
-  const { uuidOrigen, uuidDestino } = req.body;
+  const { uuidOrigen, uuidDestino, loteMax } = req.body;
 
   //buscar los hijos del uuidOrigen
 
@@ -26,13 +28,29 @@ app.post("/migracionCO", async (req, res) => {
   };
 
   await fetch(
-    `https://testdms.tigo.com.co/alfresco/api/-default-/public/alfresco/versions/1/nodes/${uuidOrigen}/children?skipCount=0&maxItems=100&include=path`,
+    `${process.env.API}/-default-/public/alfresco/versions/1/nodes/${uuidOrigen}/children?skipCount=0&maxItems=100&include=path`,
     requestOptions
   )
     .then((response) => response.json())
     .then((res) => {
-      console.log(res["list"]["entries"]);
+      writeToLog(`Obtengo los hijos del id: ${uuidOrigen}`);
+      console.log(`Obtengo los hijos del id: ${uuidOrigen}`);
       res["list"]["entries"].forEach((f) => {
+        cantLote++;
+
+        if (cantLote > loteMax) {
+          writeToLog(
+            `Se termina la ejecucion por superar el limite del lote de ${loteMax}`
+          );
+          console.log(
+            `Se termina la ejecucion por superar el limite del lote de ${loteMax}`
+          );
+          return res.status(200).json({
+            msg: "La operacion se ejecuto con exito",
+            res: `Uuid Origen: ${uuidOrigen} \n Uuid Destino: ${uuidDestino}`,
+          });
+        }
+
         var fecha = f["entry"]["createdAt"];
         var name = f["entry"]["name"];
         var idOrigen = f["entry"]["id"];
@@ -44,28 +62,18 @@ app.post("/migracionCO", async (req, res) => {
         const month = date.getMonth(); // Ten en cuenta que en JavaScript los meses comienzan desde 0 (enero es 0, febrero es 1, etc.)
         const day = date.getDate();
 
-        console.log(`Año: ${year}, Mes: ${month + 1}, Día: ${day}`);
-
         crearCarpeta(year, month, day, idOrigen, uuidOrigen, uuidDestino);
       });
     })
-    .catch((error) => console.log("Error al obtener los hijos: ", error));
+    .catch((error) => {
+      console.log("Error al obtener los hijos: ", error);
+      writeToLog(`Error al obtener los hijos: ${error}`);
+    });
 
   return res.status(200).json({
     msg: "La operacion se ejecuto con exito",
     res: `Uuid Origen: ${uuidOrigen} \n Uuid Destino: ${uuidDestino}`,
   });
-
-  //recorrerlos, ver su cm:created y crear la estructura de carpetas
-
-  //moverlos a la estructura nueva
-
-  //consulta cmis para extraer los datos de generar radicado = vector de radicados
-
-  //recorremos el vector y para cada radicado buscamos en co el igual
-
-  //si se encuentra se crea el path en generar radicado se mueve los archivos al nuevo path y se controlan los documentos
-  // que no estes duplicados y se pasa los documentos que no esten
 });
 
 const crearCarpeta = async (
@@ -94,16 +102,18 @@ const crearCarpeta = async (
   };
 
   await fetch(
-    `https://testdms.tigo.com.co/alfresco/api/-default-/public/alfresco/versions/1/nodes/${uuidDestino}/children`,
+    `${process.env.API}/-default-/public/alfresco/versions/1/nodes/${uuidDestino}/children`,
     requestOptions
   )
     .then((response) => response.json())
     .then((result) => {
-      console.log("result despues crear la carpeta: ", result);
+      writeToLog(`Se crea la carpeta con id: ${result["entry"]["id"]}`);
+      console.log(`Se crea la carpeta con id: ${result["entry"]["id"]}`);
       encontrarCarpeta(year, month, day, idOrigen, uuidDestino);
     })
     .catch((error) => {
-      console.log("error", error);
+      writeToLog(`La estructura de carpeta ya esta creada.`);
+      console.log(`La estructura de carpeta ya esta creada.`);
       encontrarCarpeta(year, month, day, idOrigen, uuidDestino);
     });
 };
@@ -119,14 +129,16 @@ const encontrarCarpeta = async (year, month, day, idOrigen, uuidDestino) => {
   };
 
   await fetch(
-    `https://testdms.tigo.com.co/alfresco/api/-default-/public/alfresco/versions/1/nodes/${uuidDestino}/children?skipCount=0&maxItems=100&include=path&relativePath=${year}%2F${month}`,
+    `${process.env.API}/-default-/public/alfresco/versions/1/nodes/${uuidDestino}/children?skipCount=0&maxItems=100&include=path&relativePath=${year}%2F${month}`,
     requestOptions
   )
     .then((response) => response.json())
     .then((result) => {
       console.log(
-        "resultados al obtener la carpeta (enconrtarCarpeta): ",
-        result
+        `Se encuentra la carpeta con esta fecha: ${day}/${month}/${year}`
+      );
+      writeToLog(
+        `Se encuentra la carpeta con esta fecha: ${day}/${month}/${year}`
       );
       result["list"]["entries"].forEach((d) => {
         if (d["entry"]["name"] == day) {
@@ -136,6 +148,9 @@ const encontrarCarpeta = async (year, month, day, idOrigen, uuidDestino) => {
     })
     .catch((error) => {
       console.log("error en encontrarCarpeta: ", error);
+      writeToLog(
+        `Error al encontrar carpeta con fecha: ${day}/${month}/${year}`
+      );
     });
 };
 
@@ -156,18 +171,24 @@ const moverCarpeta = async (uuidOrigen, uuidDestino) => {
   };
 
   await fetch(
-    `https://testdms.tigo.com.co/alfresco/api/-default-/public/alfresco/versions/1/nodes/${uuidOrigen}/move`,
+    `${process.env.API}/-default-/public/alfresco/versions/1/nodes/${uuidOrigen}/move`,
     requestOptions
   )
     .then((response) => response.json())
     .then((result) => {
-      console.log("resultados de movercarpeta : ", result);
+      console.log(
+        `Se mueve la carpeta con id : ${uuidOrigen} a la carpeta con id: ${uuidDestino}`
+      );
+      writeToLog(
+        `Se mueve la carpeta con id : ${uuidOrigen} a la carpeta con id: ${uuidDestino}`
+      );
       extraerHijosGR(result["entry"]["id"], result["entry"]["name"]);
-      /*  var hijosCO = buscarEnCO(result["entry"]["name"]);
-      compararDuplicados(hijosGR, hijosCO); */
     })
     .catch((error) => {
       console.log("error en moverCarpeta: ", error);
+      writeToLog(
+        `Error al mover carpeta con id: ${uuidOrigen} a la carpeta con id: ${uuidDestino}`
+      );
     });
 };
 
@@ -182,44 +203,18 @@ const extraerHijosGR = async (id, name) => {
   };
 
   await fetch(
-    `https://testdms.tigo.com.co/alfresco/api/-default-/public/alfresco/versions/1/nodes/${id}/children?skipCount=0&maxItems=100`,
+    `${process.env.API}/-default-/public/alfresco/versions/1/nodes/${id}/children?skipCount=0&maxItems=100`,
     requestOptions
   )
     .then((response) => response.json())
     .then((hijosGR) => {
-      console.log("resultados de extraerhijos: ", hijosGR);
-      console.log("hijosGR : ", hijosGR["list"]["entries"]);
+      console.log(`Se logran extraer los hijos con id: ${id}`);
+      writeToLog(`Se logran extraer los hijos con id: ${id}`);
       buscarEnCO(name, hijosGR["list"]["entries"]);
-      //return hijosGR["list"]["entries"]
     })
     .catch((error) => {
       console.log("error en extraerHijos: ", error);
-    });
-};
-
-const extraerHijos = async (id, hijosGR) => {
-  var myHeaders = new Headers();
-  myHeaders.append("Authorization", "Basic bXp1bGlhbjo0TG05eSYhTSZXUCN3Zg==");
-
-  var requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    redirect: "follow",
-  };
-
-  await fetch(
-    `https://testdms.tigo.com.co/alfresco/api/-default-/public/alfresco/versions/1/nodes/${id}/children?skipCount=0&maxItems=100`,
-    requestOptions
-  )
-    .then((response) => response.json())
-    .then((result) => {
-      console.log("resultados de extraerhijos: ", result);
-      console.log("hijosCO : ", result["list"]["entries"]);
-      compararDuplicados(hijosGR, result["list"]["entries"]);
-      //return hijosGR["list"]["entries"]
-    })
-    .catch((error) => {
-      console.log("error en extraerHijos: ", error);
+      writeToLog(`Error al extraer hijos con id: ${id}`);
     });
 };
 
@@ -230,8 +225,6 @@ const buscarEnCO = async (name, hijosGR) => {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", "Basic bXp1bGlhbjo0TG05eSYhTSZXUCN3Zg==");
-
-  console.log("el name: ", name);
 
   var raw = JSON.stringify({
     query: {
@@ -248,12 +241,13 @@ const buscarEnCO = async (name, hijosGR) => {
   };
 
   await fetch(
-    "https://testdms.tigo.com.co/alfresco/api/-default-/public/search/versions/1/search",
+    `${process.env.API}/-default-/public/search/versions/1/search`,
     requestOptions
   )
     .then((response) => response.json())
     .then((result) => {
-      console.log("resultados de buscarEnCO: ", result["list"]["entries"]);
+      console.log(`Se buscan carpetas en con con el nombre: ${name}`);
+      writeToLog(`Se buscan carpetas en con con el nombre: ${name}`);
 
       let listResult = result["list"]["entries"];
 
@@ -264,7 +258,35 @@ const buscarEnCO = async (name, hijosGR) => {
       }
     })
     .catch((error) => {
-      console.log("error en buscarEnCO: ", error);
+      console.log(`Error al buscan carpetas en con con el nombre: ${name}`);
+      console.log("error: ", error);
+      writeToLog(`Error al buscan carpetas en con con el nombre: ${name}`);
+    });
+};
+
+const extraerHijos = async (id, hijosGR) => {
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Basic bXp1bGlhbjo0TG05eSYhTSZXUCN3Zg==");
+
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  await fetch(
+    `${process.env.API}/-default-/public/alfresco/versions/1/nodes/${id}/children?skipCount=0&maxItems=100`,
+    requestOptions
+  )
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(`Se extraen hijos con id: ${id}`);
+      writeToLog(`Se extraen hijos con id: ${id}`);
+      compararDuplicados(hijosGR, result["list"]["entries"]);
+    })
+    .catch((error) => {
+      console.log("error en extraerHijos: ", error);
+      writeToLog(`Error al extraer hijos con id: ${id}`);
     });
 };
 
@@ -272,46 +294,46 @@ const compararDuplicados = async (hijosGR, hijosCO) => {
   var destino;
   var documentosMover = [];
 
-  var arrayNombreCO = []
+  var arrayNombreCO = [];
 
-  var arrayNombre = []
-  var arrayId = []
+  var arrayNombre = [];
+  var arrayId = [];
 
-  hijosCO.forEach(h => {
-    arrayNombreCO.push(h['entry']['name'])
-  })
-  
-  hijosGR.forEach(h => {
-    arrayNombre.push(h['entry']['name'])
-    arrayId.push(h['entry']['id'])
-  })
+  hijosCO.forEach((h) => {
+    arrayNombreCO.push(h["entry"]["name"]);
+  });
 
-  console.log("arraynombres: ", arrayNombre)
-  console.log("arrayId: ", arrayId)
-  console.log("arrayNombreCO: ", arrayNombreCO)
+  hijosGR.forEach((h) => {
+    arrayNombre.push(h["entry"]["name"]);
+    arrayId.push(h["entry"]["id"]);
+  });
 
-  hijosCO.forEach(h => {
-    if(arrayNombre.includes(h['entry']['name'])){
+  hijosCO.forEach((h) => {
+    if (arrayNombre.includes(h["entry"]["name"])) {
       //archivos duplicados
       //no se mueve
       //posible validacion de versiones
-      console.log("Archivo duplicado con nombre: ", h['entry']['name'])
-    }else{
-      console.log("archivo que no esta duplicado con nombre: ", h['entry']['name'])
-      destino = hijosGR[0]['entry']['parentId'];
-      console.log("valor de h: ", h)
-      documentosMover.push(h['entry']['id']);
+      console.log(
+        "Se encuentra archivo duplicado con nombre: ",
+        h["entry"]["name"]
+      );
+      writeToLog(
+        `Se encuentra archivo duplicado con nombre: ${h["entry"]["name"]}`
+      );
+    } else {
+      writeToLog(
+        `No se encuentra archivo duplicado con nombre: ${h["entry"]["name"]}`
+      );
+      destino = hijosGR[0]["entry"]["parentId"];
+      documentosMover.push(h["entry"]["id"]);
     }
-  })
+  });
 
   documentosMover.forEach((d) => {
-    console.log("El id que se va  amover: ", d)
-    console.log("a donde se mueve:  ", destino)
     //mueve cada documento
     moverDoc(d, destino);
   });
 };
-
 
 const moverDoc = async (idOrigen, idDestino) => {
   var myHeaders = new Headers();
@@ -330,15 +352,21 @@ const moverDoc = async (idOrigen, idDestino) => {
   };
 
   await fetch(
-    `https://testdms.tigo.com.co/alfresco/api/-default-/public/alfresco/versions/1/nodes/${idOrigen}/move`,
+    `${process.env.API}/-default-/public/alfresco/versions/1/nodes/${idOrigen}/move`,
     requestOptions
   )
     .then((response) => response.json())
     .then((result) => {
       console.log("resultado de moverDoc : ", result);
+      writeToLog(
+        `Se mueve documento con id: ${idOrigen} a la carpeta con id: ${idDestino}`
+      );
     })
     .catch((error) => {
       console.log("error en moverDoc", error);
+      writeToLog(
+        `Error al mover el documento con id: ${idOrigen} a la carpeta con id: ${idDestino}`
+      );
     });
 };
 
