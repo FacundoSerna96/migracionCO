@@ -71,9 +71,10 @@ app.post("/migracionCO", async (req, res) => {
 
         //verifico si existe algun id en el localstorage
         //de esa manera sigo con el proceso que fallo en anterior intento
-        /* if(localStorage.getItem('clave')){
-
-        } */
+        if(localStorage.getItem('idBackupError') != ''){
+          crearCarpeta(year, month, day, localStorage.getItem('idBackupError'), uuidOrigen, uuidDestino);
+          localStorage.setItem('idBackupError','')
+        }
 
         crearCarpeta(year, month, day, idOrigen, uuidOrigen, uuidDestino);
       });
