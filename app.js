@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 
 const express = require("express");
 const writeToLog = require("./log");
-const backupIdError = require("./backupError");
+const logBorrado = require("./logBorrado");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -68,6 +68,12 @@ app.post("/migracionCO", async (req, res) => {
         const year = date.getFullYear();
         const month = date.getMonth(); // Ten en cuenta que en JavaScript los meses comienzan desde 0 (enero es 0, febrero es 1, etc.)
         const day = date.getDate();
+
+        //verifico si existe algun id en el localstorage
+        //de esa manera sigo con el proceso que fallo en anterior intento
+        /* if(localStorage.getItem('clave')){
+
+        } */
 
         crearCarpeta(year, month, day, idOrigen, uuidOrigen, uuidDestino);
       });
@@ -332,6 +338,8 @@ const compararDuplicados = async (hijosGR, hijosCO) => {
       writeToLog(
         `Se encuentra archivo duplicado con nombre: ${h["entry"]["name"]}`
       );
+
+      
     } else {
       writeToLog(
         `No se encuentra archivo duplicado con nombre: ${h["entry"]["name"]}`
@@ -341,9 +349,23 @@ const compararDuplicados = async (hijosGR, hijosCO) => {
     }
   });
 
-  documentosMover.forEach((d) => {
+  //si todos los archivos estan duplicados
+  if(documentosMover.length == 0){
+    //se guarda el id para su posterior borrado
+    logBorrado(`${hijosCO[0]["entry"]["parentId"]}`);
+  }
+
+  documentosMover.forEach((d,index) => {
+
     //mueve cada documento
     moverDoc(d, destino);
+
+    //verifica si es el ultimo a mover
+    //si es asi lo marca para su posterior borrado
+    if(index+1 == documentosMover.length){
+      //se guarda el id para su posterior borrado
+      logBorrado(`${hijosCO[0]["entry"]["parentId"]}`);
+    }
   });
 };
 
