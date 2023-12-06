@@ -35,4 +35,4 @@ const backupIdError = (message) => {
 }
 
 
-module.exports = [writeToLog, backupIdError];
+module.exports = writeToLog;

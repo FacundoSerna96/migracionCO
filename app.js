@@ -1,9 +1,15 @@
 require("dotenv").config(); // Cargar variables de entorno desde .env
+const LocalStorage = require('node-localstorage').LocalStorage;
+const localStorage = new LocalStorage('./storage');
+
+
+//console.log(localStorage.getItem('clave')); // Imprime: valor
 
 const bodyParser = require("body-parser");
 
 const express = require("express");
-const { writeToLog, backupIdError } = require("./log");
+const writeToLog = require("./log");
+const backupIdError = require("./backupError");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -13,10 +19,12 @@ app.use(bodyParser.json());
 
 var cantLote = 0;
 
+var idBackupError = '';
+
 // Ruta básica
 app.post("/migracionCO", async (req, res) => {
   const { uuidOrigen, uuidDestino, loteMax } = req.body;
-
+  cantLote = 0
   //buscar los hijos del uuidOrigen
 
   var requestOptions = {
@@ -32,10 +40,10 @@ app.post("/migracionCO", async (req, res) => {
     requestOptions
   )
     .then((response) => response.json())
-    .then((res) => {
+    .then((result) => {
       writeToLog(`Obtengo los hijos del id: ${uuidOrigen}`);
       console.log(`Obtengo los hijos del id: ${uuidOrigen}`);
-      res["list"]["entries"].forEach((f) => {
+      result["list"]["entries"].forEach((f) => {
         cantLote++;
 
         if (cantLote > loteMax) {
@@ -45,15 +53,14 @@ app.post("/migracionCO", async (req, res) => {
           console.log(
             `Se termina la ejecucion por superar el limite del lote de ${loteMax}`
           );
-          return res.status(200).json({
-            msg: "La operacion se ejecuto con exito",
-            res: `Uuid Origen: ${uuidOrigen} \n Uuid Destino: ${uuidDestino}`,
-          });
+          return
         }
 
         var fecha = f["entry"]["createdAt"];
         var name = f["entry"]["name"];
         var idOrigen = f["entry"]["id"];
+
+        idBackupError = idOrigen;
 
         const date = new Date(fecha);
 
@@ -215,6 +222,7 @@ const extraerHijosGR = async (id, name) => {
     .catch((error) => {
       console.log("error en extraerHijos: ", error);
       writeToLog(`Error al extraer hijos con id: ${id}`);
+      localStorage.setItem('idBackupError', idBackupError);
     });
 };
 
@@ -261,6 +269,8 @@ const buscarEnCO = async (name, hijosGR) => {
       console.log(`Error al buscan carpetas en con con el nombre: ${name}`);
       console.log("error: ", error);
       writeToLog(`Error al buscan carpetas en con con el nombre: ${name}`);
+
+      localStorage.setItem('idBackupError', idBackupError);
     });
 };
 
@@ -287,6 +297,8 @@ const extraerHijos = async (id, hijosGR) => {
     .catch((error) => {
       console.log("error en extraerHijos: ", error);
       writeToLog(`Error al extraer hijos con id: ${id}`);
+
+      localStorage.setItem('idBackupError', idBackupError);
     });
 };
 
@@ -357,7 +369,7 @@ const moverDoc = async (idOrigen, idDestino) => {
   )
     .then((response) => response.json())
     .then((result) => {
-      console.log("resultado de moverDoc : ", result);
+      console.log(`Se mueve documento con id: ${idOrigen} a la carpeta con id: ${idDestino}`);
       writeToLog(
         `Se mueve documento con id: ${idOrigen} a la carpeta con id: ${idDestino}`
       );
@@ -367,6 +379,8 @@ const moverDoc = async (idOrigen, idDestino) => {
       writeToLog(
         `Error al mover el documento con id: ${idOrigen} a la carpeta con id: ${idDestino}`
       );
+
+      localStorage.setItem('idBackupError', idBackupError);
     });
 };
 
