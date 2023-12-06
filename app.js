@@ -1,7 +1,6 @@
 require("dotenv").config(); // Cargar variables de entorno desde .env
-const LocalStorage = require('node-localstorage').LocalStorage;
-const localStorage = new LocalStorage('./storage');
-
+const LocalStorage = require("node-localstorage").LocalStorage;
+const localStorage = new LocalStorage("./storage");
 
 //console.log(localStorage.getItem('clave')); // Imprime: valor
 
@@ -19,12 +18,12 @@ app.use(bodyParser.json());
 
 var cantLote = 0;
 
-var idBackupError = '';
+var idBackupError = "";
 
 // Ruta básica
 app.post("/migracionCO", async (req, res) => {
   const { uuidOrigen, uuidDestino, loteMax } = req.body;
-  cantLote = 0
+  cantLote = 0;
   //buscar los hijos del uuidOrigen
 
   var requestOptions = {
@@ -53,7 +52,7 @@ app.post("/migracionCO", async (req, res) => {
           console.log(
             `Se termina la ejecucion por superar el limite del lote de ${loteMax}`
           );
-          return
+          return;
         }
 
         var fecha = f["entry"]["createdAt"];
@@ -71,9 +70,16 @@ app.post("/migracionCO", async (req, res) => {
 
         //verifico si existe algun id en el localstorage
         //de esa manera sigo con el proceso que fallo en anterior intento
-        if(localStorage.getItem('idBackupError') != ''){
-          crearCarpeta(year, month, day, localStorage.getItem('idBackupError'), uuidOrigen, uuidDestino);
-          localStorage.setItem('idBackupError','')
+        if (localStorage.getItem("idBackupError") != "") {
+          crearCarpeta(
+            year,
+            month,
+            day,
+            localStorage.getItem("idBackupError"),
+            uuidOrigen,
+            uuidDestino
+          );
+          localStorage.setItem("idBackupError", "");
         }
 
         crearCarpeta(year, month, day, idOrigen, uuidOrigen, uuidDestino);
@@ -229,7 +235,7 @@ const extraerHijosGR = async (id, name) => {
     .catch((error) => {
       console.log("error en extraerHijos: ", error);
       writeToLog(`Error al extraer hijos con id: ${id}`);
-      localStorage.setItem('idBackupError', idBackupError);
+      localStorage.setItem("idBackupError", idBackupError);
     });
 };
 
@@ -277,7 +283,7 @@ const buscarEnCO = async (name, hijosGR) => {
       console.log("error: ", error);
       writeToLog(`Error al buscan carpetas en con con el nombre: ${name}`);
 
-      localStorage.setItem('idBackupError', idBackupError);
+      localStorage.setItem("idBackupError", idBackupError);
     });
 };
 
@@ -305,7 +311,7 @@ const extraerHijos = async (id, hijosGR) => {
       console.log("error en extraerHijos: ", error);
       writeToLog(`Error al extraer hijos con id: ${id}`);
 
-      localStorage.setItem('idBackupError', idBackupError);
+      localStorage.setItem("idBackupError", idBackupError);
     });
 };
 
@@ -339,8 +345,6 @@ const compararDuplicados = async (hijosGR, hijosCO) => {
       writeToLog(
         `Se encuentra archivo duplicado con nombre: ${h["entry"]["name"]}`
       );
-
-      
     } else {
       writeToLog(
         `No se encuentra archivo duplicado con nombre: ${h["entry"]["name"]}`
@@ -351,26 +355,31 @@ const compararDuplicados = async (hijosGR, hijosCO) => {
   });
 
   //si todos los archivos estan duplicados
-  if(documentosMover.length == 0){
+  if (documentosMover.length == 0) {
     //se guarda el id para su posterior borrado
     logBorrado(`${hijosCO[0]["entry"]["parentId"]}`);
+
+    //se borra la carpeta padre en CO
+    borrarCO(`${hijosCO[0]["entry"]["parentId"]}`);
   }
 
-  documentosMover.forEach((d,index) => {
+  var ultimo = false;
 
-    //mueve cada documento
-    moverDoc(d, destino);
-
+  documentosMover.forEach((d, index) => {
     //verifica si es el ultimo a mover
     //si es asi lo marca para su posterior borrado
-    if(index+1 == documentosMover.length){
-      //se guarda el id para su posterior borrado
-      logBorrado(`${hijosCO[0]["entry"]["parentId"]}`);
+    if (index + 1 == documentosMover.length) {
+      ultimo = true;
     }
+
+    //mueve cada documento
+    moverDoc(d, destino, ultimo, hijosCO[0]["entry"]["parentId"]);
+
+    ultimo = false;
   });
 };
 
-const moverDoc = async (idOrigen, idDestino) => {
+const moverDoc = async (idOrigen, idDestino, ultimo, parent) => {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", "Basic bXp1bGlhbjo0TG05eSYhTSZXUCN3Zg==");
@@ -392,10 +401,20 @@ const moverDoc = async (idOrigen, idDestino) => {
   )
     .then((response) => response.json())
     .then((result) => {
-      console.log(`Se mueve documento con id: ${idOrigen} a la carpeta con id: ${idDestino}`);
+      console.log(
+        `Se mueve documento con id: ${idOrigen} a la carpeta con id: ${idDestino}`
+      );
       writeToLog(
         `Se mueve documento con id: ${idOrigen} a la carpeta con id: ${idDestino}`
       );
+
+      if (ultimo) {
+        //se guarda el id para su posterior borrado
+        logBorrado(parent);
+
+        //se borra la carpeta padre en CO
+        borrarCO(parent);
+      }
     })
     .catch((error) => {
       console.log("error en moverDoc", error);
@@ -403,7 +422,42 @@ const moverDoc = async (idOrigen, idDestino) => {
         `Error al mover el documento con id: ${idOrigen} a la carpeta con id: ${idDestino}`
       );
 
-      localStorage.setItem('idBackupError', idBackupError);
+      localStorage.setItem("idBackupError", idBackupError);
+    });
+};
+
+const borrarCO = async (idAborrar) => {
+  //borra carpetas en co
+  writeToLog(`Se borra la carpeta en CO con id: ${idAborrar}`);
+
+  return;
+
+  //se borra el nodo
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Basic bXp1bGlhbjo0TG05eSYhTSZXUCN3Zg==");
+
+  var requestOptions = {
+    method: "DELETE",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  await fetch(
+    `${process.env.API}/-default-/public/alfresco/versions/1/nodes/${idAborrar}?permanent=false`,
+    requestOptions
+  )
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(`La carpeta de CO con id: ${idAborrar} , se borro con exto`);
+      writeToLog(
+        `La carpeta de CO con id: ${idAborrar} , se borro con exito`
+      );
+    })
+    .catch((error) => {
+      console.log(`ERROR: La carpeta de CO con id: ${idAborrar} , no se pudo borrar, error: ${error}`);
+      writeToLog(
+        `ERROR: La carpeta de CO con id: ${idAborrar} , no se pudo borrar, error: ${error}`
+      );
     });
 };
 

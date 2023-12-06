@@ -1,174 +1,28 @@
-[2023-12-06T15:50:44.693Z] Obtengo los hijos del id: e1b5b5f5-fcde-4197-ba50-70f611a33032
-[2023-12-06T15:50:44.698Z] Se termina la ejecucion por superar el limite del lote de 1
-[2023-12-06T15:50:45.505Z] Se crea la carpeta con id: f4ce4b57-82e5-4530-ac08-1b12c93a1d72
-[2023-12-06T15:50:46.298Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T15:50:47.189Z] Se mueve la carpeta con id : a345838b-4e6c-4b86-bee1-00692dbe6585 a la carpeta con id: f4ce4b57-82e5-4530-ac08-1b12c93a1d72
-[2023-12-06T15:50:47.815Z] Se logran extraer los hijos con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T15:50:48.637Z] Se buscan carpetas en con con el nombre: 123456789
-[2023-12-06T15:50:49.230Z] Se extraen hijos con id: a93d13db-8c34-403d-b1d8-fd70285986ee
-[2023-12-06T15:50:49.231Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (1).pdf
-[2023-12-06T15:50:49.232Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T15:50:49.232Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (13).pdf
-[2023-12-06T15:50:49.233Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T15:50:49.234Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T15:50:49.233Z] Se encuentra archivo duplicado con nombre: 8938495391_TEST57185.pdf
-[2023-12-06T15:50:49.234Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T15:50:49.234Z] No se encuentra archivo duplicado con nombre: test.pdf
-[2023-12-06T15:50:50.086Z] Se mueve documento con id: 44c96248-2f17-4c32-8ef3-e5ed3cba8e61 a la carpeta con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:20:17.435Z] Obtengo los hijos del id: e1b5b5f5-fcde-4197-ba50-70f611a33032
-[2023-12-06T17:20:18.205Z] Se crea la carpeta con id: 21fdbf44-67eb-4156-93f9-da797978c25b
-[2023-12-06T17:20:18.399Z] La estructura de carpeta ya esta creada.
-[2023-12-06T17:20:19.004Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:20:19.147Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:20:19.755Z] Se mueve la carpeta con id : a345838b-4e6c-4b86-bee1-00692dbe6585 a la carpeta con id: 21fdbf44-67eb-4156-93f9-da797978c25b
-[2023-12-06T17:20:20.015Z] Se mueve la carpeta con id : e8cbcfe0-c651-405c-a375-ea76c079b056 a la carpeta con id: 21fdbf44-67eb-4156-93f9-da797978c25b
-[2023-12-06T17:20:20.377Z] Se logran extraer los hijos con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:20:20.626Z] Se logran extraer los hijos con id: e8cbcfe0-c651-405c-a375-ea76c079b056
-[2023-12-06T17:20:20.827Z] Se buscan carpetas en con con el nombre: 123456789
-[2023-12-06T17:20:21.155Z] Se extraen hijos con id: a93d13db-8c34-403d-b1d8-fd70285986ee
-[2023-12-06T17:20:21.156Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (1).pdf
-[2023-12-06T17:20:21.157Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (13).pdf
-[2023-12-06T17:20:21.158Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:20:21.159Z] Se encuentra archivo duplicado con nombre: 8938495391_TEST57185.pdf
-[2023-12-06T17:20:21.160Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:20:21.160Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:20:21.161Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:20:21.161Z] No se encuentra archivo duplicado con nombre: test.pdf
-[2023-12-06T17:20:21.414Z] Se buscan carpetas en con con el nombre: 987654321
-[2023-12-06T17:20:21.606Z] Se mueve documento con id: 44c96248-2f17-4c32-8ef3-e5ed3cba8e61 a la carpeta con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:20:21.726Z] Se extraen hijos con id: 8564a25c-06cb-4f21-ac39-165818641bdc
-[2023-12-06T17:20:21.726Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:20:21.727Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:20:21.727Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:20:21.727Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:21:58.457Z] Obtengo los hijos del id: e1b5b5f5-fcde-4197-ba50-70f611a33032
-[2023-12-06T17:21:59.121Z] Se crea la carpeta con id: be3f727e-79b6-40c9-bcb7-573b12931f16
-[2023-12-06T17:21:59.199Z] La estructura de carpeta ya esta creada.
-[2023-12-06T17:21:59.757Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:21:59.791Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:22:00.304Z] Se mueve la carpeta con id : a345838b-4e6c-4b86-bee1-00692dbe6585 a la carpeta con id: be3f727e-79b6-40c9-bcb7-573b12931f16
-[2023-12-06T17:22:00.315Z] Se mueve la carpeta con id : e8cbcfe0-c651-405c-a375-ea76c079b056 a la carpeta con id: be3f727e-79b6-40c9-bcb7-573b12931f16
-[2023-12-06T17:22:00.923Z] Se logran extraer los hijos con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:22:00.940Z] Se logran extraer los hijos con id: e8cbcfe0-c651-405c-a375-ea76c079b056
-[2023-12-06T17:22:01.326Z] Se buscan carpetas en con con el nombre: 123456789
-[2023-12-06T17:22:01.366Z] Se buscan carpetas en con con el nombre: 987654321
-[2023-12-06T17:22:01.699Z] Se extraen hijos con id: a93d13db-8c34-403d-b1d8-fd70285986ee
-[2023-12-06T17:22:01.699Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (1).pdf
-[2023-12-06T17:22:01.700Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (13).pdf
-[2023-12-06T17:22:01.701Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:22:01.701Z] Se encuentra archivo duplicado con nombre: 8938495391_TEST57185.pdf
-[2023-12-06T17:22:01.702Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:22:01.702Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:22:01.702Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:22:01.703Z] No se encuentra archivo duplicado con nombre: test.pdf
-[2023-12-06T17:22:01.720Z] Se extraen hijos con id: 8564a25c-06cb-4f21-ac39-165818641bdc
-[2023-12-06T17:22:01.721Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:22:01.721Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:22:01.722Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:22:01.722Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:22:02.452Z] Se mueve documento con id: 44c96248-2f17-4c32-8ef3-e5ed3cba8e61 a la carpeta con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:35:06.865Z] Obtengo los hijos del id: e1b5b5f5-fcde-4197-ba50-70f611a33032
-[2023-12-06T17:35:07.593Z] Se crea la carpeta con id: 8c65a941-d2d4-4d9a-8ef4-11319c4faebc
-[2023-12-06T17:35:07.769Z] La estructura de carpeta ya esta creada.
-[2023-12-06T17:35:08.367Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:35:08.500Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:35:09.102Z] Se mueve la carpeta con id : a345838b-4e6c-4b86-bee1-00692dbe6585 a la carpeta con id: 8c65a941-d2d4-4d9a-8ef4-11319c4faebc
-[2023-12-06T17:35:09.361Z] Se mueve la carpeta con id : e8cbcfe0-c651-405c-a375-ea76c079b056 a la carpeta con id: 8c65a941-d2d4-4d9a-8ef4-11319c4faebc
-[2023-12-06T17:35:09.860Z] Se logran extraer los hijos con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:35:09.980Z] Se logran extraer los hijos con id: e8cbcfe0-c651-405c-a375-ea76c079b056
-[2023-12-06T17:35:10.327Z] Se buscan carpetas en con con el nombre: 123456789
-[2023-12-06T17:35:10.655Z] Se extraen hijos con id: a93d13db-8c34-403d-b1d8-fd70285986ee
-[2023-12-06T17:35:10.656Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (1).pdf
-[2023-12-06T17:35:10.658Z] Se encuentra archivo duplicado con nombre: 8938495391_TEST57185.pdf
-[2023-12-06T17:35:10.657Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (13).pdf
-[2023-12-06T17:35:10.657Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:35:10.658Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:35:10.659Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:35:10.660Z] No se encuentra archivo duplicado con nombre: test.pdf
-[2023-12-06T17:35:10.659Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:35:10.727Z] Se buscan carpetas en con con el nombre: 987654321
-[2023-12-06T17:35:11.037Z] Se extraen hijos con id: 8564a25c-06cb-4f21-ac39-165818641bdc
-[2023-12-06T17:35:11.038Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:35:11.039Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:35:11.038Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:35:11.039Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:35:11.101Z] Se mueve documento con id: 44c96248-2f17-4c32-8ef3-e5ed3cba8e61 a la carpeta con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:35:11.106Z] Error al mover el documento con id: 44c96248-2f17-4c32-8ef3-e5ed3cba8e61 a la carpeta con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:36:39.876Z] Obtengo los hijos del id: e1b5b5f5-fcde-4197-ba50-70f611a33032
-[2023-12-06T17:36:40.592Z] Se crea la carpeta con id: f271d2c8-52b5-4713-b665-816698e8fcc7
-[2023-12-06T17:36:40.768Z] La estructura de carpeta ya esta creada.
-[2023-12-06T17:36:40.966Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:36:41.357Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:36:41.694Z] Se mueve la carpeta con id : a345838b-4e6c-4b86-bee1-00692dbe6585 a la carpeta con id: f271d2c8-52b5-4713-b665-816698e8fcc7
-[2023-12-06T17:36:42.075Z] Se mueve la carpeta con id : e8cbcfe0-c651-405c-a375-ea76c079b056 a la carpeta con id: f271d2c8-52b5-4713-b665-816698e8fcc7
-[2023-12-06T17:36:42.307Z] Se logran extraer los hijos con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:36:42.686Z] Se logran extraer los hijos con id: e8cbcfe0-c651-405c-a375-ea76c079b056
-[2023-12-06T17:36:42.772Z] Se buscan carpetas en con con el nombre: 123456789
-[2023-12-06T17:36:43.337Z] Se buscan carpetas en con con el nombre: 987654321
-[2023-12-06T17:36:43.368Z] Se extraen hijos con id: a93d13db-8c34-403d-b1d8-fd70285986ee
-[2023-12-06T17:36:43.369Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (1).pdf
-[2023-12-06T17:36:43.370Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:36:43.371Z] Se encuentra archivo duplicado con nombre: 8938495391_TEST57185.pdf
-[2023-12-06T17:36:43.370Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (13).pdf
-[2023-12-06T17:36:43.371Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:36:43.371Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:36:43.372Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:36:43.372Z] No se encuentra archivo duplicado con nombre: test.pdf
-[2023-12-06T17:36:43.651Z] Se extraen hijos con id: 8564a25c-06cb-4f21-ac39-165818641bdc
-[2023-12-06T17:36:43.652Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:36:43.653Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:36:43.652Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:36:43.653Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:36:43.796Z] Se mueve documento con id: 44c96248-2f17-4c32-8ef3-e5ed3cba8e61 a la carpeta con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:39:48.673Z] Obtengo los hijos del id: e1b5b5f5-fcde-4197-ba50-70f611a33032
-[2023-12-06T17:39:49.384Z] Se crea la carpeta con id: 75b41b3f-e4aa-4c0d-bdff-58770db64a5d
-[2023-12-06T17:39:49.517Z] La estructura de carpeta ya esta creada.
-[2023-12-06T17:39:49.747Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:39:50.107Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:39:50.469Z] Se mueve la carpeta con id : a345838b-4e6c-4b86-bee1-00692dbe6585 a la carpeta con id: 75b41b3f-e4aa-4c0d-bdff-58770db64a5d
-[2023-12-06T17:39:50.836Z] Se mueve la carpeta con id : e8cbcfe0-c651-405c-a375-ea76c079b056 a la carpeta con id: 75b41b3f-e4aa-4c0d-bdff-58770db64a5d
-[2023-12-06T17:39:51.083Z] Se logran extraer los hijos con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:39:51.462Z] Se logran extraer los hijos con id: e8cbcfe0-c651-405c-a375-ea76c079b056
-[2023-12-06T17:39:51.869Z] Se buscan carpetas en con con el nombre: 123456789
-[2023-12-06T17:39:52.198Z] Se extraen hijos con id: a93d13db-8c34-403d-b1d8-fd70285986ee
-[2023-12-06T17:39:52.199Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (1).pdf
-[2023-12-06T17:39:52.201Z] Se encuentra archivo duplicado con nombre: 8938495391_TEST57185.pdf
-[2023-12-06T17:39:52.199Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (13).pdf
-[2023-12-06T17:39:52.200Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:39:52.202Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:39:52.202Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:39:52.203Z] No se encuentra archivo duplicado con nombre: test.pdf
-[2023-12-06T17:39:52.203Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:39:52.245Z] Se buscan carpetas en con con el nombre: 987654321
-[2023-12-06T17:39:52.976Z] Se extraen hijos con id: 8564a25c-06cb-4f21-ac39-165818641bdc
-[2023-12-06T17:39:52.977Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:39:52.978Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:39:52.977Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:39:52.978Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:39:53.049Z] Se mueve documento con id: 44c96248-2f17-4c32-8ef3-e5ed3cba8e61 a la carpeta con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:41:12.151Z] Obtengo los hijos del id: e1b5b5f5-fcde-4197-ba50-70f611a33032
-[2023-12-06T17:41:12.819Z] Se crea la carpeta con id: c850910a-ed8a-49d6-a991-7f6416d1f97b
-[2023-12-06T17:41:12.902Z] La estructura de carpeta ya esta creada.
-[2023-12-06T17:41:13.514Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:41:13.626Z] Se encuentra la carpeta con esta fecha: 4/11/2023
-[2023-12-06T17:41:13.979Z] Se mueve la carpeta con id : e8cbcfe0-c651-405c-a375-ea76c079b056 a la carpeta con id: c850910a-ed8a-49d6-a991-7f6416d1f97b
-[2023-12-06T17:41:14.474Z] Se mueve la carpeta con id : a345838b-4e6c-4b86-bee1-00692dbe6585 a la carpeta con id: c850910a-ed8a-49d6-a991-7f6416d1f97b
-[2023-12-06T17:41:14.731Z] Se logran extraer los hijos con id: e8cbcfe0-c651-405c-a375-ea76c079b056
-[2023-12-06T17:41:15.231Z] Se logran extraer los hijos con id: a345838b-4e6c-4b86-bee1-00692dbe6585
-[2023-12-06T17:41:15.407Z] Se buscan carpetas en con con el nombre: 987654321
-[2023-12-06T17:41:16.038Z] Se buscan carpetas en con con el nombre: 123456789
-[2023-12-06T17:41:16.136Z] Se extraen hijos con id: 8564a25c-06cb-4f21-ac39-165818641bdc
-[2023-12-06T17:41:16.137Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:41:16.138Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:41:16.139Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:41:16.139Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:41:16.352Z] Se extraen hijos con id: a93d13db-8c34-403d-b1d8-fd70285986ee
-[2023-12-06T17:41:16.352Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (1).pdf
-[2023-12-06T17:41:16.353Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
-[2023-12-06T17:41:16.352Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (13).pdf
-[2023-12-06T17:41:16.353Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
-[2023-12-06T17:41:16.353Z] Se encuentra archivo duplicado con nombre: 8938495391_TEST57185.pdf
-[2023-12-06T17:41:16.354Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
-[2023-12-06T17:41:16.354Z] No se encuentra archivo duplicado con nombre: test.pdf
-[2023-12-06T17:41:16.354Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
-[2023-12-06T17:41:17.212Z] Se mueve documento con id: 44c96248-2f17-4c32-8ef3-e5ed3cba8e61 a la carpeta con id: a345838b-4e6c-4b86-bee1-00692dbe6585
+[2023-12-06T18:17:31.032Z] Obtengo los hijos del id: e1b5b5f5-fcde-4197-ba50-70f611a33032
+[2023-12-06T18:17:31.779Z] Se crea la carpeta con id: e0fa7b85-5ba5-4538-8ac6-424764d9ce75
+[2023-12-06T18:17:31.951Z] La estructura de carpeta ya esta creada.
+[2023-12-06T18:17:32.408Z] Se encuentra la carpeta con esta fecha: 4/11/2023
+[2023-12-06T18:17:32.683Z] Se encuentra la carpeta con esta fecha: 4/11/2023
+[2023-12-06T18:17:33.186Z] Se mueve la carpeta con id : e8cbcfe0-c651-405c-a375-ea76c079b056 a la carpeta con id: e0fa7b85-5ba5-4538-8ac6-424764d9ce75
+[2023-12-06T18:17:33.308Z] Se mueve la carpeta con id : a345838b-4e6c-4b86-bee1-00692dbe6585 a la carpeta con id: e0fa7b85-5ba5-4538-8ac6-424764d9ce75
+[2023-12-06T18:17:33.810Z] Se logran extraer los hijos con id: e8cbcfe0-c651-405c-a375-ea76c079b056
+[2023-12-06T18:17:33.921Z] Se logran extraer los hijos con id: a345838b-4e6c-4b86-bee1-00692dbe6585
+[2023-12-06T18:17:34.321Z] Se buscan carpetas en con con el nombre: 123456789
+[2023-12-06T18:17:34.578Z] Se buscan carpetas en con con el nombre: 987654321
+[2023-12-06T18:17:34.644Z] Se extraen hijos con id: a93d13db-8c34-403d-b1d8-fd70285986ee
+[2023-12-06T18:17:34.645Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (1).pdf
+[2023-12-06T18:17:34.646Z] Se encuentra archivo duplicado con nombre: 2022-08-16 LICENCIAS (13).pdf
+[2023-12-06T18:17:34.647Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
+[2023-12-06T18:17:34.647Z] Se encuentra archivo duplicado con nombre: 8938495391_TEST57185.pdf
+[2023-12-06T18:17:34.648Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
+[2023-12-06T18:17:34.648Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
+[2023-12-06T18:17:34.649Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
+[2023-12-06T18:17:34.649Z] No se encuentra archivo duplicado con nombre: test.pdf
+[2023-12-06T18:17:34.896Z] Se extraen hijos con id: 8564a25c-06cb-4f21-ac39-165818641bdc
+[2023-12-06T18:17:34.897Z] Se encuentra archivo duplicado con nombre: 202296123212admin loteDocumentos.txt
+[2023-12-06T18:17:34.898Z] Se encuentra archivo duplicado con nombre: CEXIAC01.pdf
+[2023-12-06T18:17:34.897Z] Se encuentra archivo duplicado con nombre: 8969867946_0.pdf
+[2023-12-06T18:17:34.897Z] Se encuentra archivo duplicado con nombre: 8978589535_TEST57201.pdf
+[2023-12-06T18:17:34.898Z] Se borra la carpeta en CO con id: 8564a25c-06cb-4f21-ac39-165818641bdc
+[2023-12-06T18:17:35.374Z] Se mueve documento con id: 44c96248-2f17-4c32-8ef3-e5ed3cba8e61 a la carpeta con id: a345838b-4e6c-4b86-bee1-00692dbe6585
+[2023-12-06T18:17:35.375Z] Se borra la carpeta en CO con id: a93d13db-8c34-403d-b1d8-fd70285986ee
