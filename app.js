@@ -2,6 +2,9 @@ require("dotenv").config(); // Cargar variables de entorno desde .env
 const LocalStorage = require("node-localstorage").LocalStorage;
 const localStorage = new LocalStorage("./storage");
 
+const fs = require('fs'); // Módulo para trabajar con archivos (solo si estás en entorno Node.js)
+
+
 //console.log(localStorage.getItem('clave')); // Imprime: valor
 
 const bodyParser = require("body-parser");
@@ -19,6 +22,71 @@ app.use(bodyParser.json());
 var cantLote = 0;
 
 var idBackupError = "";
+
+// Función para leer el archivo y extraer los IDs
+function leerArchivoYExtraerIDs(nombreArchivo) {
+  try {
+    const data = fs.readFileSync(nombreArchivo, 'utf8'); // Lee el archivo de manera sincrónica
+    const lineas = data.split('\n'); // Separa por líneas
+
+    const ids = lineas.map(linea => {
+      // Aquí se asume que cada línea contiene un ID, ajusta esto según la estructura de tu archivo
+      return linea.trim(); // Elimina espacios en blanco al inicio y final de la línea
+    });
+
+    return ids;
+  } catch (error) {
+    console.error('Error al leer el archivo:', error);
+    return [];
+  }
+}
+
+
+app.delete("/borradoCO", async (req, res) => {
+
+  //obtiene lista de ids del archivo "idDisponiblesParaBorrar"
+  const listaIDs = leerArchivoYExtraerIDs("idDisponiblesParaBorrar.txt")
+
+  if(listaIDs){
+    listaIDs.forEach(async id => {
+      //se borra el nodo
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Basic bXp1bGlhbjo0TG05eSYhTSZXUCN3Zg==");
+
+      var requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      await fetch(
+        `${process.env.API}/-default-/public/alfresco/versions/1/nodes/${id}?permanent=false`,
+        requestOptions
+      )
+        .then((response) => response.text())
+        .then(() => {
+          console.log(`La carpeta de CO con id: ${id} , se borro con exito`);
+          writeToLog(`La carpeta de CO con id: ${id} , se borro con exito`);
+        })
+        .catch((error) => {
+          console.log(
+            `ERROR: La carpeta de CO con id: ${id} , no se pudo borrar, error: ${error}`
+          );
+          writeToLog(
+            `ERROR: La carpeta de CO con id: ${id} , no se pudo borrar, error: ${error}`
+          );
+        });
+    })
+    return res.status(200).json({
+      msg : "Los archivo se borraron con exito"
+    })
+  }else{
+    return res.status(400).json({
+      msg : "No se encuentra archivo 'idDisponiblesParaBorrar.txt'"
+    })
+  }
+});
+
 
 // Ruta básica
 app.post("/migracionCO", async (req, res) => {
@@ -456,7 +524,7 @@ const borrarCO = async (idAborrar) => {
   //borra carpetas en co
   writeToLog(`Se borra la carpeta en CO con id: ${idAborrar}`);
 
-  return;
+  return
 
   //se borra el nodo
   var myHeaders = new Headers();
@@ -468,12 +536,13 @@ const borrarCO = async (idAborrar) => {
     redirect: "follow",
   };
 
+
   await fetch(
     `${process.env.API}/-default-/public/alfresco/versions/1/nodes/${idAborrar}?permanent=false`,
     requestOptions
   )
-    .then((response) => response.json())
-    .then((result) => {
+    .then((response) => response.text())
+    .then(() => {
       console.log(`La carpeta de CO con id: ${idAborrar} , se borro con exto`);
       writeToLog(`La carpeta de CO con id: ${idAborrar} , se borro con exito`);
     })
